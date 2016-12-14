@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!--泛型的支持会在编译时期报红线，但是是可以直接运行的
+            但是需要通过转义字符才行，如：&lt;数据类型> 或者&lt;数据类型&gt;-->
+    <data>
+        <import type="android.view.View" />
+        <import type="java.util.List" />
+        <import type="java.lang.String" />
+        <import type="java.util.Map" />
+
+        <variable
+            name="user1"
+            type="com.ways2u.android.mvpapp.test.User" />
+        <variable
+            name="user2"
+            type="com.ways2u.android.mvpapp.test.User" />
+        <variable
+            name="presenter"
+            type="com.ways2u.android.mvpapp.MainActivity.MainActivityPresenter" />
+        <variable
+            name="list1"
+            type="List&lt;String&gt;" />
+        <variable
+            name="map"
+            type="Map&lt;String,String>"/>
+        <variable
+            name="arrays"
+            type="String[]" />
+
+        <variable
+            name="list2"
+            type="android.databinding.ObservableArrayList&lt;String&gt;"/>
+
+        <variable
+            name="map2"
+            type="android.databinding.ObservableArrayMap&lt;String,String&gt;"/>
+        <variable
+            name="student"
+            type="com.ways2u.android.mvpapp.test.Student" />
+
+        <variable
+            name="time2"
+            type="java.util.Date" />
+
+        <variable
+            name="imgUrl"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        tools:context="com.ways2u.android.mvpapp.MainActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->presenter.onClickListenerBinding(user1)}"
+            android:text="@{user1.toString()}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user2.toString()}" />
+
+        <CheckBox
+            android:id="@+id/seeAds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.Holo.Light.CompoundButton.CheckBox"
+            android:checked="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{presenter.onClick}"
+            android:visibility="@{seeAds.checked?View.VISIBLE:View.GONE}"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{presenter::onClick}"
+            android:text="@{user2.name}" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@={user2.name}"
+            android:onTextChanged="@{presenter::onTextChanged}"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{list1[0]}" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{map[`name`]}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{map.get(`age`)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{arrays[0]}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{student.field}" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(student.age)}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{list2[0]}" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{map2[`name`]}" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{time2}"/>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:image="@{imgUrl}"
+            />
+
+
+        <Button
+            android:id="@+id/four_btn"
+            android:layout_width="match_parent"
+            android:text="改变数据"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</layout>
